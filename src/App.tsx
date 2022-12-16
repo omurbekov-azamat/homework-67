@@ -1,28 +1,22 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import {RootState} from "./app/store";
+import {VALUES} from "./constants";
 import PushButtons from "./components/PushButton/PushButtons";
-import {ValueButton} from "./types";
 
 function App() {
-  const buttonsValue: ValueButton[] = [
-    {value: '7'},
-    {value: '8'},
-    {value: '9'},
-    {value: '4'},
-    {value: '5'},
-    {value: '6'},
-    {value: '1'},
-    {value: '2'},
-    {value: '3'},
-    {value: '<'},
-    {value: '0'},
-    {value: 'E'},
-  ];
+  const value = useSelector((state: RootState) => state.password);
 
   return (
     <div className='container'>
       <div className='mt-5' style={{width: '300px', marginLeft: '400px'}}>
-        <input type="text" style={{width: '300px', height: '80px'}}/>
-        <PushButtons values={buttonsValue}/>
+        <div
+          className='border border-dark pt-1'
+          style={{height: '50px', background: value.check}}
+        >
+          {value.value.replaceAll(/./g,'*')}
+        </div>
+        <PushButtons values={VALUES}/>
       </div>
     </div>
   );
